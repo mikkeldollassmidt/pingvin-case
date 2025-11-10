@@ -24,9 +24,13 @@ def main():
     # print(data.dropna())
     
     # Specify the outcome
-    features = ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g", "sex"]
-    target = "species"
-    data = data[features + [target]]
+    # features = ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g", "sex"]
+    # target = "species"
+    # data = data[features + [target]]
+    # print(data.head())
+    
+    # Hot Encode
+    data = pd.get_dummies(data, drop_first=True)
     print(data.head())
 
 
