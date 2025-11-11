@@ -76,17 +76,36 @@ def main():
 
 
     # Evaluating data
-    y_pred_tree = model_tree.predict(X_test)
-    print("1. DT Accuracy:", round(accuracy_score(y_test, y_pred_tree), 2))
-    print("2. DT Confusion Matrix:\n", confusion_matrix(y_test, y_pred_tree))
-    print("3. DT Classification Report:\n", classification_report(y_test, y_pred_tree)) 
+    # y_pred_tree = model_tree.predict(X_test)
+    # print("1. DT Accuracy:", round(accuracy_score(y_test, y_pred_tree), 2))
+    # print("2. DT Confusion Matrix:\n", confusion_matrix(y_test, y_pred_tree))
+    # print("3. DT Classification Report:\n", classification_report(y_test, y_pred_tree)) 
        
-    model_knn = KNeighborsClassifier(n_neighbors=5)
-    model_knn.fit(X_train, y_train)
-    y_pred_knn = model_knn.predict(X_test)
-    print("1. KNN Accuracy:", round(accuracy_score(y_test, y_pred_knn), 2))
-    print("2. KNN Confusion Matrix:\n", confusion_matrix(y_test, y_pred_knn))
-    print("3. KNN Classification Report:\n", classification_report(y_test, y_pred_knn))
+    # model_knn = KNeighborsClassifier(n_neighbors=5)
+    # model_knn.fit(X_train, y_train)
+    # y_pred_knn = model_knn.predict(X_test)
+    # print("1. KNN Accuracy:", round(accuracy_score(y_test, y_pred_knn), 2))
+    # print("2. KNN Confusion Matrix:\n", confusion_matrix(y_test, y_pred_knn))
+    # print("3. KNN Classification Report:\n", classification_report(y_test, y_pred_knn))
+    
+    
+    # Test Decision Tree med forskellige max_depth
+    for depth in [2, 3, 5, 10, None]:
+        model = DecisionTreeClassifier(max_depth=depth, random_state=42)
+        model.fit(X_train, y_train)
+        train_acc = model.score(X_train, y_train)
+        test_acc = model.score(X_test, y_test)
+        print(f"Decision Tree max_depth={depth}: Train={train_acc:.2f}, Test={test_acc:.2f}")
+
+    print("\n---------------------------\n")
+
+    # Test KNN med forskellige n_neighbors
+    for k in [1, 3, 5, 10, 20]:
+        model = KNeighborsClassifier(n_neighbors=k)
+        model.fit(X_train, y_train)
+        train_acc = model.score(X_train, y_train)
+        test_acc = model.score(X_test, y_test)
+        print(f"KNN n_neighbors={k}: Train={train_acc:.2f}, Test={test_acc:.2f}")
 
 
 if __name__ == "__main__":
